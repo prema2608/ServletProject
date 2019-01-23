@@ -4,17 +4,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-
 import com.bridgelabz.model.User;
-
 
 import java.sql.Connection;
 
-public class MyDbaseApp 
-{  
-	public static Connection getMySQLConnection()
-			throws ClassNotFoundException, SQLException {
+public class MyDbaseApp {
+	public static Connection getMySQLConnection() throws ClassNotFoundException, SQLException {
 
 		String hostName = "localhost";
 		String dbName = "ServletProject";
@@ -23,9 +18,8 @@ public class MyDbaseApp
 		return getMySQLConnection(hostName, dbName, userName, password);
 	}
 
-	public static Connection getMySQLConnection(String hostName, String dbName,
-			String userName, String password) throws SQLException,
-	ClassNotFoundException {
+	public static Connection getMySQLConnection(String hostName, String dbName, String userName, String password)
+			throws SQLException, ClassNotFoundException {
 
 		Class.forName("com.mysql.jdbc.Driver");
 
@@ -35,50 +29,37 @@ public class MyDbaseApp
 		Connection conn = DriverManager.getConnection(connectionURL, userName, password);
 		return conn;
 	}
+
 	public static void registration(User user) throws SQLException, ClassNotFoundException {
-		String sql = "Insert into Registration(id ,name, email,pnumb,passwrd,confrmpaswrd) values (?,?,?,?,?,?)";
+		String sql = "Insert into Registration(id ,name, email,pnumb,passwrd) values (?,?,?,?,?)";
 		Connection conn = getMySQLConnection();
 		PreparedStatement pstm = conn.prepareStatement(sql);
-		pstm.setInt(1, 0);
+		pstm.setInt(1, user.getId());
+		System.out.println(user.toString());
 		pstm.setString(2, user.getName());
 		pstm.setString(3, user.getEmail());
-		pstm.setLong(4,user.getPnumb());
+		pstm.setLong(4, user.getPnumb());
 		pstm.setString(5, user.getPassword());
 		pstm.execute();
 		conn.close();
 	}
 
+	public static boolean retriveValue(User user) throws SQLException, ClassNotFoundException {
 
-
-	public static void retriveValue(User user) throws SQLException, ClassNotFoundException
-	{
-
-		String query = "SELECT passwrd FROM Registration WHERE( name=User.name & passwrd=User.passwrd)";
+		String query = "SELECT passwrd FROM Registration WHERE name=? and passwrd=?";
 		Connection conn = getMySQLConnection();
-
-		Statement st = conn.createStatement();
-		ResultSet rs = st.executeQuery(query);
-		try {
-			while (rs.next())
-			{
-				int id = rs.getInt("id");
-				String name = rs.getString("name");
-				String passwrd = rs.getString("passwrd");
-				st.close();
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-
+		PreparedStatement pstm = conn.prepareStatement(query);
+		pstm.setString(1, user.getName());
+		pstm.setString(2, user.getPassword());
+		ResultSet rs = pstm.executeQuery();
+		while (rs.next()) {
+//				int id = rs.getInt("id");
+//				String name = rs.getString("name");
+//				String passwrd = rs.getString("passwrd");
+//				st.close();
+			return true;
+		}
+		return false;
 	}
+
 }
-
-
-
-
-
-
-
-
-

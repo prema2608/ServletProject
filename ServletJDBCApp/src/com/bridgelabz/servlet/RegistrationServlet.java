@@ -13,33 +13,28 @@ import com.bridgelabz.dbutil.MyDbaseApp;
 import com.bridgelabz.model.User;
 
 @SuppressWarnings("serial")
-public class RegistrationServlet extends HttpServlet
-	{
-		public void doPost(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException
-		{
-			
-			String name = request.getParameter("name");
-			System.out.println(name);
-			String password = request.getParameter("password");
-			System.out.println(password);
-			String email = request.getParameter("email");
-			System.out.println(email);
-			
-			System.out.println(request.getParameter("pnumb"));
-			long pnumb = Long.parseLong(request.getParameter("pnumb"));
-			System.out.println(pnumb);
-			
-			
-			  RequestDispatcher rd = request.getRequestDispatcher("/LoginPage.html"); 
-			  rd.forward(request, response);
-				  
-			User us = new User(name, email, pnumb, password);
-			
-			try {
-				MyDbaseApp.registration(us);
-			} catch (ClassNotFoundException | SQLException e) {
-				// TODO Auto-generated catch block
-				System.out.println("Something wrong");
-			}
+public class RegistrationServlet extends HttpServlet {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		String name = request.getParameter("name");
+		System.out.println(name);
+		String password = request.getParameter("password");
+		System.out.println(password);
+		String email = request.getParameter("email");
+		System.out.println(email);
+		long pnumb = Long.parseLong(request.getParameter("pnumb"));
+		System.out.println(pnumb);
+
+		User us = new User(0,name, email, pnumb, password);
+
+		try {
+			MyDbaseApp.registration(us);
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			System.out.println("Something wrong");
 		}
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/LoginPage.html");
+		rd.forward(request, response);
+	}
 }
