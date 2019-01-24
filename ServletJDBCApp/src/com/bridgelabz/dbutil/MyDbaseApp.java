@@ -9,6 +9,8 @@ import com.bridgelabz.model.User;
 import java.sql.Connection;
 
 public class MyDbaseApp {
+	
+	
 	public static Connection getMySQLConnection() throws ClassNotFoundException, SQLException {
 
 		String hostName = "localhost";
@@ -29,6 +31,7 @@ public class MyDbaseApp {
 		Connection conn = DriverManager.getConnection(connectionURL, userName, password);
 		return conn;
 	}
+	
 
 	public static void registration(User user) throws SQLException, ClassNotFoundException {
 		String sql = "Insert into Registration(id ,name, email,pnumb,passwrd) values (?,?,?,?,?)";

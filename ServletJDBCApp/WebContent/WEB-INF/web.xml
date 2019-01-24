@@ -43,6 +43,16 @@
       <servlet-name>WelcomePageServlet</servlet-name>
       <url-pattern>/logout</url-pattern>
    </servlet-mapping>
-   
+ 
+  <filter>
+      <filter-name>Validation</filter-name>
+      <filter-class>com.bridgelabz.validation.Validation</filter-class>
+   </filter>
+ 
+
+   <filter-mapping>
+      <filter-name>Validation</filter-name>
+      <url-pattern>/register</url-pattern>
+   </filter-mapping>  
    
 </web-app>
