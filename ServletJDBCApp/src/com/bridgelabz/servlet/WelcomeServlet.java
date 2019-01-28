@@ -26,6 +26,7 @@ public class WelcomeServlet extends HttpServlet {
 		// Post Parameters From The Request
 
 		String name = req.getParameter("name");
+		@SuppressWarnings("unused")
 		String logout = req.getParameter("logout");
 	//	String password = req.getParameter("password");
 		// Building & Printing The HTML Response Code

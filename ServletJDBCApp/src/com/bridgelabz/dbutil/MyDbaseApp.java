@@ -47,22 +47,25 @@ public class MyDbaseApp {
 		conn.close();
 	}
 
-	public static boolean retriveValue(User user) throws SQLException, ClassNotFoundException {
+	public static User retriveValue(User user) throws SQLException, ClassNotFoundException {
 
-		String query = "SELECT passwrd FROM Registration WHERE name=? and passwrd=?";
+		String query = "SELECT * FROM Registration WHERE name=? and passwrd=?";
 		Connection conn = getMySQLConnection();
 		PreparedStatement pstm = conn.prepareStatement(query);
 		pstm.setString(1, user.getName());
 		pstm.setString(2, user.getPassword());
 		ResultSet rs = pstm.executeQuery();
+		User user2=null;
 		while (rs.next()) {
 //				int id = rs.getInt("id");
 //				String name = rs.getString("name");
 //				String passwrd = rs.getString("passwrd");
 //				st.close();
-			return true;
+			user2 =new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getLong(4), rs.getString(5));
+			
 		}
-		return false;
+		
+		return user2;
 	}
 
 }

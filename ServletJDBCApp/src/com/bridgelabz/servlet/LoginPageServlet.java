@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,17 +42,24 @@ public class LoginPageServlet extends HttpServlet
 			rdObj.include(req, resp);
 
 		}
+		
 		else
 		{
 			try {
-				Boolean b=MyDbaseApp.retriveValue(user);
-				if(b)
+				User user2=MyDbaseApp.retriveValue(user);
+				if(user2!=null)
 				{
 					HttpSession session = req.getSession(true);
-					session.setAttribute("value", name);
-					rdObj = req.getRequestDispatcher("/WelcomePage.html");
+					session.setAttribute("uname", name);
+					Cookie loginCookie = new Cookie("uname",name);
+					//setting cookie to expiry in 30 mins
+					loginCookie.setMaxAge(30*60);
+					resp.addCookie(loginCookie);
+					rdObj = req.getRequestDispatcher("/ProfilePage.jsp");
 					rdObj.forward(req, resp);
+					
 				}
+				   
 				else
 				{
 					out.write("<p id='errMsg' style='color: red; font-size: larger;'>You are not an authorised user! Please check with administrator!</p>");
