@@ -67,5 +67,21 @@ public class MyDbaseApp {
 		
 		return user2;
 	}
+	
+	public static void edit(User user) throws ClassNotFoundException, SQLException
+	{
+		String query = "UPDATE  Registration SET email=?, pnumb=?,passwrd=? WHERE name=?";
+
+		Connection conn=getMySQLConnection();
+		 PreparedStatement stmt = conn.prepareStatement(query);
+		 stmt.setString(4, user.getName());
+		 stmt.setString(1, user.getEmail());
+		 stmt.setLong(2, user.getPnumb());
+		 stmt.setString(3, user.getPassword());
+	
+		 
+		 int i=stmt.executeUpdate();
+		 System.out.println(i);
+}
 
 }

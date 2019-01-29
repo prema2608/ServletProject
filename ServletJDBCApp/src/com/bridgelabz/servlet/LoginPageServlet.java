@@ -30,7 +30,7 @@ public class LoginPageServlet extends HttpServlet
 
 		out.write("<html><body><div id='serlvetResponse' style='text-align: center;'>");
 
-		// Creating The 'RequestDispatcher' Object For Forwading The HTTP Request
+		// Creating The 'RequestDispatcher' Object For Forwarding The HTTP Request
 		if(name == null || password == null || "".equals(name) || "".equals(password)) {
 
 			//HttpSession  session = req.setAttribute("user", name);
@@ -50,9 +50,9 @@ public class LoginPageServlet extends HttpServlet
 				if(user2!=null)
 				{
 					HttpSession session = req.getSession(true);
-					session.setAttribute("uname", name);
+					session.setAttribute("uname", user2);
 					Cookie loginCookie = new Cookie("uname",name);
-					//setting cookie to expiry in 30 mins
+					//setting cookie to expire in 30 mins
 					loginCookie.setMaxAge(30*60);
 					resp.addCookie(loginCookie);
 					rdObj = req.getRequestDispatcher("/ProfilePage.jsp");

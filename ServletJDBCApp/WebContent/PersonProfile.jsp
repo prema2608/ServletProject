@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 	<%@page import ="com.bridgelabz.model.User" %>
 <!DOCTYPE html>
 <html>
@@ -32,10 +32,19 @@
 	%>
 	<h3>
 		Hi
-		<%=userName%>, Login successful.<br>Your Session ID=<%=sessionID%></h3>
+		<%=userName%></h3>
 	<br>
+	Your name:<%=user.getName()%>
+	<br>
+   Your	email:<%=user.getEmail()%>
+	<br>
+   Your	phn no:<%=user.getPnumb()%>
 	
-	<a href ="PersonProfile.jsp">Proceed to profile--></a>
-	
+	<form action="<%=response.encodeURL("Edit.jsp") %>" method="post">
+		<input type="submit" value="edit">
+	</form>
+	<form action="logout" method="post">
+		<input type="submit" value="Logout">
+	</form>
 </body>
 </html>
